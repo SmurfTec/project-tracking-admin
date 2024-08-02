@@ -1,13 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, TextField, MenuItem, Button, Typography, Box, DialogContent, DialogTitle, Dialog, DialogActions } from '@mui/material';
 
-const NewProject = ({open,handleClose,handleSuccess,title}) => {
+const NewProject = ({open,handleClose,handleSuccess,title, data,isUpdate}) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [milestone, setMilestone] = useState('');
   const [status, setStatus] = useState('');
   const [number, setNumber] = useState()
   const [duedate, setDuedate] = useState(new Date())
+
+  useEffect(() => {
+    if(isUpdate){
+      setName(data.name)
+      setDescription(data.description)
+      setMilestone(data.milestone)
+      setStatus(data.status)
+      setNumber(data.number)
+      setDuedate(new Date(data.duedate).toISOString().split('T')[0])
+    }
+  }, [isUpdate])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -215,9 +226,6 @@ const NewProject = ({open,handleClose,handleSuccess,title}) => {
       </DialogTitle>
       <DialogContent>
         <Box sx={{ mt: 4 }}>
-          <Typography variant="h4" gutterBottom>
-            {title}
-          </Typography>
           <form onSubmit={handleSubmit} id='form1'>
             <TextField
               required
@@ -288,7 +296,7 @@ const NewProject = ({open,handleClose,handleSuccess,title}) => {
       </DialogContent>
       <DialogActions>
          <Button form='form1' type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
-            Create Project
+            {isUpdate ? 'Update' : 'Create'}
           </Button>
       </DialogActions>
     </Dialog>

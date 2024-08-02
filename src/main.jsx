@@ -6,7 +6,9 @@ import { HelmetProvider } from 'react-helmet-async';
 import App from './app';
 import { AuthProvider } from './Context/AuthContext';
 import { ProjectsProvider } from './Context/ProjectsContext';
+import { ToastContainer } from 'react-toastify';
 
+  import 'react-toastify/dist/ReactToastify.css';
 // ----------------------------------------------------------------------
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -17,6 +19,7 @@ root.render(
       <Suspense>
         <AuthProvider>
           <ProjectsProvider>
+             <ToastContainer />
             <App /> 
           </ProjectsProvider>
         </AuthProvider>

@@ -23,14 +23,19 @@ import UserTableToolbar from '../user-table-toolbar';
 import { emptyRows, applyFilter, getComparator } from '../utils';
 import { useProjects } from 'src/Context/ProjectsContext';
 import NewProject from 'src/Modals/NewProject';
+import ConfirmDelete from 'src/Modals/DeleteProject';
 
 // ----------------------------------------------------------------------
 
 export default function UserPage() {
   const [page, setPage] = useState(0);
-  const { projects,createNewProject } = useProjects();
+  const { projects,createNewProject,deleteProject,updateProject:updateProjectFunction } = useProjects();
 
   const [isNewProjectDialogpen, setIsNewProjectDialogpen] = useState(false)
+  const [isUpdateProjectOpen, setIsUpdateProjectOpen] = useState(false)
+  const [updateProject,  setupdateProject] = useState()
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false)
+  const [deleteId, setDeleteId] = useState()
 
   const [order, setOrder] = useState('asc');
 
@@ -154,6 +159,14 @@ export default function UserPage() {
                       created_at={row.created_at}
                       selected={selected.indexOf(row.name) !== -1}
                       handleClick={(event) => handleClick(event, row.name)}
+                      handleEdit={()=> {
+                        setIsUpdateProjectOpen(true)
+                        setupdateProject(row)
+                      }}
+                      handleDelete={()=> {
+                        setIsDeleteOpen(true)
+                        setDeleteId(row.id)
+                      }}
                     />
                   ))}
 
@@ -190,6 +203,38 @@ export default function UserPage() {
             open={isNewProjectDialogpen} 
             handleClose={()=> {
               setIsNewProjectDialogpen(false)
+            }} 
+          />
+        }
+        {
+          isUpdateProjectOpen && 
+          <NewProject
+            title='Update Project'
+            handleSuccess={(data)=> {
+              updateProjectFunction(updateProject.id, data , () => {
+                setIsUpdateProjectOpen(false)
+              })
+            }}
+            open={isUpdateProjectOpen} 
+            handleClose={()=> {
+              setIsUpdateProjectOpen(false)
+            }} 
+            data={updateProject}
+            isUpdate
+          />
+        }
+        {
+          isDeleteOpen && 
+          <ConfirmDelete
+            title='Delete Project'
+            handleSuccess={()=> {
+              deleteProject(deleteId , () => {
+                setIsDeleteOpen(false)
+              })
+            }}
+            open={isDeleteOpen} 
+            handleClose={()=> {
+              setIsDeleteOpen(false)
             }} 
           />
         }
