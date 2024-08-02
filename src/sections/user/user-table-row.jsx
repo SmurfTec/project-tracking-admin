@@ -19,11 +19,12 @@ import Iconify from 'src/components/iconify';
 export default function UserTableRow({
   selected,
   name,
-  avatarUrl,
-  company,
-  role,
-  isVerified,
+  description,
+  milestone,
   status,
+  created_at,
+  number,
+  duedate,
   handleClick,
 }) {
   const [open, setOpen] = useState(null);
@@ -40,26 +41,38 @@ export default function UserTableRow({
     <>
       <TableRow hover tabIndex={-1} role="checkbox" selected={selected}>
         <TableCell padding="checkbox">
-          <Checkbox disableRipple checked={selected} onChange={handleClick} />
         </TableCell>
 
         <TableCell component="th" scope="row" padding="none">
           <Stack direction="row" alignItems="center" spacing={2}>
-            <Avatar alt={name} src={avatarUrl} />
             <Typography variant="subtitle2" noWrap>
               {name}
             </Typography>
           </Stack>
         </TableCell>
 
-        <TableCell>{company}</TableCell>
+        <TableCell>{description}</TableCell>
 
-        <TableCell>{role}</TableCell>
+        <TableCell>{milestone}</TableCell>
 
-        <TableCell align="center">{isVerified ? 'Yes' : 'No'}</TableCell>
+        <TableCell align="center">{status}</TableCell>
+        <TableCell align="center">{number}</TableCell>
+         <TableCell>
+          {new Date(duedate).toLocaleDateString('en-US', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+          })
+          }
+        </TableCell>
 
         <TableCell>
-          <Label color={(status === 'banned' && 'error') || 'success'}>{status}</Label>
+          {new Date(created_at).toLocaleDateString('en-US', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+          })
+          }
         </TableCell>
 
         <TableCell align="right">

@@ -21,11 +21,16 @@ import UserTableHead from '../user-table-head';
 import TableEmptyRows from '../table-empty-rows';
 import UserTableToolbar from '../user-table-toolbar';
 import { emptyRows, applyFilter, getComparator } from '../utils';
+import { useProjects } from 'src/Context/ProjectsContext';
+import NewProject from 'src/Modals/NewProject';
 
 // ----------------------------------------------------------------------
 
 export default function UserPage() {
   const [page, setPage] = useState(0);
+  const { projects,createNewProject } = useProjects();
+
+  const [isNewProjectDialogpen, setIsNewProjectDialogpen] = useState(false)
 
   const [order, setOrder] = useState('asc');
 
@@ -87,7 +92,7 @@ export default function UserPage() {
   };
 
   const dataFiltered = applyFilter({
-    inputData: users,
+    inputData: projects,
     comparator: getComparator(order, orderBy),
     filterName,
   });
@@ -96,11 +101,13 @@ export default function UserPage() {
 
   return (
     <Container>
-      <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-        <Typography variant="h4">Users</Typography>
+      <Stack direction="row" alignItems="center" justifyContent="space-between" mt={15}>
+        <Typography variant="h4">Projects</Typography>
 
-        <Button variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill" />}>
-          New User
+        <Button variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill" />} onClick={()=> {
+          setIsNewProjectDialogpen(true)
+        }}>
+          New Project
         </Button>
       </Stack>
 
@@ -123,10 +130,12 @@ export default function UserPage() {
                 onSelectAllClick={handleSelectAllClick}
                 headLabel={[
                   { id: 'name', label: 'Name' },
-                  { id: 'company', label: 'Company' },
-                  { id: 'role', label: 'Role' },
-                  { id: 'isVerified', label: 'Verified', align: 'center' },
-                  { id: 'status', label: 'Status' },
+                  { id: 'description', label: 'Description' },
+                  { id: 'milestone', label: 'Milestone' },
+                  { id: 'status', label: 'Status', align: 'center' },
+                  { id: 'number', label: 'Number', align: 'center' },
+                  { id: 'duedate', label: 'Duedate', align: 'center' },
+                  { id: 'created_at', label: 'Created Data' },
                   { id: '' },
                 ]}
               />
@@ -137,11 +146,12 @@ export default function UserPage() {
                     <UserTableRow
                       key={row.id}
                       name={row.name}
-                      role={row.role}
+                      milestone={row.milestone}
                       status={row.status}
-                      company={row.company}
-                      avatarUrl={row.avatarUrl}
-                      isVerified={row.isVerified}
+                      number={row.number}
+                      duedate={row.duedate}
+                      description={row.description}
+                      created_at={row.created_at}
                       selected={selected.indexOf(row.name) !== -1}
                       handleClick={(event) => handleClick(event, row.name)}
                     />
@@ -167,6 +177,22 @@ export default function UserPage() {
           rowsPerPageOptions={[5, 10, 25]}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
+
+        {
+          isNewProjectDialogpen && 
+          <NewProject
+            title='New Project'
+            handleSuccess={(data)=> {
+              createNewProject(data , () => {
+                setIsNewProjectDialogpen(false)
+              })
+            }}
+            open={isNewProjectDialogpen} 
+            handleClose={()=> {
+              setIsNewProjectDialogpen(false)
+            }} 
+          />
+        }
       </Card>
     </Container>
   );

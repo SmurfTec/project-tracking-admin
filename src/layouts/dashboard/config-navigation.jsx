@@ -1,5 +1,5 @@
 import SvgColor from 'src/components/svg-color';
-
+import LogoutIcon from '@mui/icons-material/Logout';
 // ----------------------------------------------------------------------
 
 const icon = (name) => (
@@ -13,29 +13,14 @@ const navConfig = [
     icon: icon('ic_analytics'),
   },
   {
-    title: 'user',
-    path: '/user',
-    icon: icon('ic_user'),
-  },
-  {
-    title: 'product',
-    path: '/products',
+    title: 'projects',
+    path: '/project',
     icon: icon('ic_cart'),
   },
   {
-    title: 'blog',
-    path: '/blog',
-    icon: icon('ic_blog'),
-  },
-  {
-    title: 'login',
-    path: '/login',
-    icon: icon('ic_lock'),
-  },
-  {
-    title: 'Not found',
-    path: '/404',
-    icon: icon('ic_disabled'),
+    title: 'Logout',
+    path: '/logout',
+    icon: <LogoutIcon />
   },
 ];
 

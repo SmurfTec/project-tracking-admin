@@ -16,6 +16,12 @@ import { Suspense } from 'react';
 
 // ----------------------------------------------------------------------
 
+const LogoutPage = () => {
+  const {logout} = useAuth();
+  logout();
+
+  return <Navigate to="/login" replace />
+}
 export default function App() {
   const {user  ,authenticating} = useAuth();
 
@@ -25,45 +31,23 @@ export default function App() {
     return (
       <ThemeProvider>
           {user ? <Routes>
-            <Route path="/" element={ <DashboardLayout>
-                  <Suspense>
-                    <Outlet />
-                  </Suspense>
-                </DashboardLayout>}
-               >
-              <Route 
-                index 
-                element={
-                  <Suspense fallback={<div>Loading...</div>}>
-                    <IndexPage />
-                  </Suspense>
-                } 
-              />
-              <Route 
-                path="user" 
-                element={
-                  <Suspense fallback={<div>Loading...</div>}>
-                    <UserPage />
-                  </Suspense>
-                } 
-              />
-              <Route 
-                path="products" 
-                element={
-                  <Suspense fallback={<div>Loading...</div>}>
-                    <ProductsPage />
-                  </Suspense>
-                } 
-              />
-              <Route 
-                path="blog" 
-                element={
-                  <Suspense fallback={<div>Loading...</div>}>
-                    <BlogPage />
-                  </Suspense>
-                } 
-              />
-            </Route>
+               <Route path="/" element={<DashboardLayout />}>
+                  <Route 
+                    index 
+                    element={
+                      <Suspense fallback={<div>Loading...</div>}>
+                        <IndexPage />
+                      </Suspense>
+                    } 
+                  />
+                  <Route 
+                    path="project" 
+                    element={
+                        <UserPage />
+                    } 
+                  />
+              </Route>
+            <Route path="logout" element={<LogoutPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
           : <Routes>

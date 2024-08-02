@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { makeRequest } from 'src/utils/constants';
+import { useAuth } from './AuthContext';
 
 // Create the ProjectsContext
 export const ProjectsContext = createContext();
@@ -9,6 +10,18 @@ export const ProjectsProvider = ({ children }) => {
   // State to hold the projects data
   const [projects, setProjects] = useState([]);
   const [projectStats, setProjectStats] = useState('Loading...')
+  const {user} = useAuth();
+
+  const createNewProject = async (data,successCallback) => {
+    try {
+      const res = await makeRequest('/projects', 'POST', data);
+      setProjects([ res.data.project,...projects]);
+      successCallback();
+    }    
+    catch (error) {
+      console.error(error);
+    }
+  };
 
 
   const getProjectStats = async () => {
@@ -24,7 +37,7 @@ export const ProjectsProvider = ({ children }) => {
   const getAllProjects = async () => {
     try {
       const res = await makeRequest('/projects' , 'GET');
-      const data = res.data
+      const data = res.data.projects
       setProjects(data);
     } catch (error) {
       console.error(error);
@@ -32,12 +45,13 @@ export const ProjectsProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    if(!user) return;
     getAllProjects();
     getProjectStats();
-  }, []);
+  }, [user]);
 
   return (
-    <ProjectsContext.Provider value={{ projects,projectStats }}>
+    <ProjectsContext.Provider value={{ projects,projectStats,createNewProject }}>
       {children}
     </ProjectsContext.Provider>
   );
