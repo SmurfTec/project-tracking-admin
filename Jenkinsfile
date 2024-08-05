@@ -14,7 +14,7 @@ pipeline {
                 dir('/home/projects/nextprojects/project-tracking-admin') {
                     sh "sudo npm install"
                     sh "sudo npm run build"
-                    sh "pm2 restart 0"
+                    sh "pm2 restart project-tracking-admin"
                 }
             }
         }
