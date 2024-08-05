@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'firstNode' }
+    agent { label 'firstnode' }
     stages {
         stage("Copy Code") {
 
