@@ -29,18 +29,21 @@ pipeline {
                     sh "pm2 -v"
                     // Print PM2 list before restarting
                     sh "pm2 list"
-                    // Print environment variables
-                    sh "env"
-                    // Print PM2 logs for debugging
-                    sh "pm2 logs project-tracking-admin"
                 }
             }
         }
-        stage("Restart PM2 Process") {
+        stage("Start/Restart PM2 Process") {
             steps {
                 dir('/home/projects/nextprojects/project-tracking-admin') {
-                    // Attempt to restart the process using the name with updated environment variables
-                    sh "pm2 restart project-tracking-admin --update-env"
+                    // Check if process is running and start if not
+                    sh """
+                    if ! pm2 list | grep -q project-tracking-admin; then
+                        pm2 start ecosystem.config.js --env production
+                    else
+                        pm2 restart project-tracking-admin --update-env
+                    fi
+                    pm2 save
+                    """
                 }
             }
         }
