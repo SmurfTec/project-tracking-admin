@@ -1,6 +1,8 @@
 import axios from "axios";
 
-export const api_url = 'http://localhost:5001';
+// export const api_url = 'http://localhost:5001';
+export const api_url = 'http://15.237.179.155:3003';
+
 export const localStorageKey = 'auth';
 
 export const makeRequest = async (url, method, body) => {
