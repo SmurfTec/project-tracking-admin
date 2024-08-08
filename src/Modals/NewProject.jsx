@@ -1,24 +1,35 @@
 import React, { useEffect, useState } from 'react';
-import { Container, TextField, MenuItem, Button, Typography, Box, DialogContent, DialogTitle, Dialog, DialogActions } from '@mui/material';
+import {
+  Container,
+  TextField,
+  MenuItem,
+  Button,
+  Typography,
+  Box,
+  DialogContent,
+  DialogTitle,
+  Dialog,
+  DialogActions,
+} from '@mui/material';
 
-const NewProject = ({open,handleClose,handleSuccess,title, data,isUpdate}) => {
+const NewProject = ({ open, handleClose, handleSuccess, title, data, isUpdate }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [milestone, setMilestone] = useState('');
   const [status, setStatus] = useState('');
-  const [number, setNumber] = useState()
-  const [duedate, setDuedate] = useState(new Date())
+  const [number, setNumber] = useState();
+  const [duedate, setDuedate] = useState(new Date());
 
   useEffect(() => {
-    if(isUpdate){
-      setName(data.name)
-      setDescription(data.description)
-      setMilestone(data.milestone)
-      setStatus(data.status)
-      setNumber(data.number)
-      setDuedate(new Date(data.duedate).toISOString().split('T')[0])
+    if (isUpdate) {
+      setName(data.name);
+      setDescription(data.description);
+      setMilestone(data.milestone);
+      setStatus(data.status);
+      setNumber(data.number);
+      setDuedate(new Date(data.duedate).toISOString().split('T')[0]);
     }
-  }, [isUpdate])
+  }, [isUpdate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,16 +39,16 @@ const NewProject = ({open,handleClose,handleSuccess,title, data,isUpdate}) => {
       milestone,
       status,
       number,
-      duedate
-    })
+      duedate,
+    });
     // Handle form submission logic here
   };
 
   const getStatusItems = () => {
     switch (milestone) {
-      case 'Offer Accepted':
+      case 'Offre acceptée':
         return (
-           <TextField
+          <TextField
             required
             fullWidth
             select
@@ -54,10 +65,11 @@ const NewProject = ({open,handleClose,handleSuccess,title, data,isUpdate}) => {
             <MenuItem value="Accepted">Accepted</MenuItem>
           </TextField>
         );
-      case 'Final Measurement':
-        return (<TextField
-          fullWidth
-          required
+      case 'Prise de mesure définitive':
+        return (
+          <TextField
+            fullWidth
+            required
             select
             label="Status"
             variant="outlined"
@@ -69,17 +81,18 @@ const NewProject = ({open,handleClose,handleSuccess,title, data,isUpdate}) => {
               <em>Select status</em>
             </MenuItem>
             {/* Add options for status */}
-          
+
             <MenuItem value="Scheduled">Scheduled</MenuItem>
             <MenuItem value="Completed">Completed</MenuItem>
             <MenuItem value="Pending">Pending</MenuItem>
-          </TextField>)
-    
-      case 'Design and Validation':
+          </TextField>
+        );
+
+      case 'Conception et Validation':
         return (
-           <TextField
-           fullWidth
-           required
+          <TextField
+            fullWidth
+            required
             select
             label="Status"
             variant="outlined"
@@ -95,31 +108,9 @@ const NewProject = ({open,handleClose,handleSuccess,title, data,isUpdate}) => {
             <MenuItem value="Design Completed">Design Completed</MenuItem>
           </TextField>
         );
-      case 'Production of Smart Films':
+      case 'Production des films Opaq':
         return (
-           <TextField
-           fullWidth
-           required
-            select
-            label="Status"
-            variant="outlined"
-            margin="normal"
-            value={status}
-            onChange={(e) => setStatus(e.target.value)}
-          >
-            <MenuItem value="">
-              <em>Select status</em>
-            </MenuItem>
-            {/* Add options for status */}
-          
-            <MenuItem value="Scheduled">Scheduled</MenuItem>
-            <MenuItem value="Pending">Pending</MenuItem>
-            <MenuItem value="In Progress">In Progress</MenuItem>
-          </TextField>
-        );
-      case 'Quality Control':
-        return (
-            <TextField
+          <TextField
             fullWidth
             required
             select
@@ -133,58 +124,17 @@ const NewProject = ({open,handleClose,handleSuccess,title, data,isUpdate}) => {
               <em>Select status</em>
             </MenuItem>
             {/* Add options for status */}
-          
-           <MenuItem value="Pending">Pending</MenuItem>
-            <MenuItem value="Approved">Approved</MenuItem>
-          </TextField>
-        );
-      case 'Site Preparation':
-        return (
-           <TextField
-           fullWidth
-           required
-            select
-            label="Status"
-            variant="outlined"
-            margin="normal"
-            value={status}
-            onChange={(e) => setStatus(e.target.value)}
-          >
-            <MenuItem value="">
-              <em>Select status</em>
-            </MenuItem>
-            {/* Add options for status */}
-          
-            <MenuItem value="Completed">Completed</MenuItem>
-          </TextField>
-        );
-      case 'Installation':
-        return (
-           <TextField
-           fullWidth
-           required
-            select
-            label="Status"
-            variant="outlined"
-            margin="normal"
-            value={status}
-            onChange={(e) => setStatus(e.target.value)}
-          >
-            <MenuItem value="">
-              <em>Select status</em>
-            </MenuItem>
-            {/* Add options for status */}
-          
+
             <MenuItem value="Scheduled">Scheduled</MenuItem>
             <MenuItem value="Pending">Pending</MenuItem>
             <MenuItem value="In Progress">In Progress</MenuItem>
           </TextField>
         );
-      case 'Project Completed':
+      case 'Contrôle Qualité':
         return (
-           <TextField
-           fullWidth
-           required
+          <TextField
+            fullWidth
+            required
             select
             label="Status"
             variant="outlined"
@@ -196,14 +146,78 @@ const NewProject = ({open,handleClose,handleSuccess,title, data,isUpdate}) => {
               <em>Select status</em>
             </MenuItem>
             {/* Add options for status */}
-          
+
+            <MenuItem value="Pending">Pending</MenuItem>
+            <MenuItem value="Approved">Approved</MenuItem>
+          </TextField>
+        );
+      case 'Préparation du chantier':
+        return (
+          <TextField
+            fullWidth
+            required
+            select
+            label="Status"
+            variant="outlined"
+            margin="normal"
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+          >
+            <MenuItem value="">
+              <em>Select status</em>
+            </MenuItem>
+            {/* Add options for status */}
+
+            <MenuItem value="Completed">Completed</MenuItem>
+          </TextField>
+        );
+      case 'Installation':
+        return (
+          <TextField
+            fullWidth
+            required
+            select
+            label="Status"
+            variant="outlined"
+            margin="normal"
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+          >
+            <MenuItem value="">
+              <em>Select status</em>
+            </MenuItem>
+            {/* Add options for status */}
+
+            <MenuItem value="Scheduled">Scheduled</MenuItem>
+            <MenuItem value="Pending">Pending</MenuItem>
+            <MenuItem value="In Progress">In Progress</MenuItem>
+          </TextField>
+        );
+      case 'Projet terminé':
+        return (
+          <TextField
+            fullWidth
+            required
+            select
+            label="Status"
+            variant="outlined"
+            margin="normal"
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+          >
+            <MenuItem value="">
+              <em>Select status</em>
+            </MenuItem>
+            {/* Add options for status */}
+
             <MenuItem value="Completed">Completed</MenuItem>
           </TextField>
         );
       default:
-        return  <TextField
-        fullWidth
-        required
+        return (
+          <TextField
+            fullWidth
+            required
             select
             label="Status"
             variant="outlined"
@@ -216,8 +230,9 @@ const NewProject = ({open,handleClose,handleSuccess,title, data,isUpdate}) => {
             </MenuItem>
             {/* Add options for status */}
           </TextField>
+        );
     }
-  }
+  };
 
   return (
     <Dialog open={open} onClose={handleClose} maxWidth="sm">
@@ -226,7 +241,7 @@ const NewProject = ({open,handleClose,handleSuccess,title, data,isUpdate}) => {
       </DialogTitle>
       <DialogContent>
         <Box sx={{ mt: 4 }}>
-          <form onSubmit={handleSubmit} id='form1'>
+          <form onSubmit={handleSubmit} id="form1">
             <TextField
               required
               fullWidth
@@ -261,16 +276,16 @@ const NewProject = ({open,handleClose,handleSuccess,title, data,isUpdate}) => {
                 <em>Select milestone</em>
               </MenuItem>
               {/* Add options for milestones */}
-              <MenuItem value="Offer Accepted">Offer Accepted</MenuItem>
-              <MenuItem value="Final Measurement">Final Measurement</MenuItem>
-              <MenuItem value="Design and Validation">Design and Validation</MenuItem>
-              <MenuItem value="Production of Smart Films">Production of Smart Films</MenuItem>
-              <MenuItem value="Quality Control">Quality Control</MenuItem>
-              <MenuItem value="Site Preparation">Site Preparation</MenuItem>
+              <MenuItem value="Offre acceptée">Offre acceptée</MenuItem>
+              <MenuItem value="Prise de mesure définitive">Prise de mesure définitive</MenuItem>
+              <MenuItem value="Conception et Validation">Conception et Validation</MenuItem>
+              <MenuItem value="Production des films Opaq">Production des films Opaq</MenuItem>
+              <MenuItem value="Contrôle Qualité">Contrôle Qualité</MenuItem>
+              <MenuItem value="Préparation du chantier">Préparation du chantier</MenuItem>
               <MenuItem value="Installation">Installation</MenuItem>
-              <MenuItem value="Project Completed">Project Completed</MenuItem>
+              <MenuItem value="Projet terminé">Projet terminé</MenuItem>
             </TextField>
-              {getStatusItems()}
+            {getStatusItems()}
             {/* textfeld for numnber and duedate */}
             <TextField
               required
@@ -295,9 +310,9 @@ const NewProject = ({open,handleClose,handleSuccess,title, data,isUpdate}) => {
         </Box>
       </DialogContent>
       <DialogActions>
-         <Button form='form1' type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
-            {isUpdate ? 'Update' : 'Create'}
-          </Button>
+        <Button form="form1" type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
+          {isUpdate ? 'Update' : 'Create'}
+        </Button>
       </DialogActions>
     </Dialog>
   );
