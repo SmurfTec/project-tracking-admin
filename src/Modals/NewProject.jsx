@@ -62,7 +62,7 @@ const NewProject = ({ open, handleClose, handleSuccess, title, data, isUpdate })
               <em>Select status</em>
             </MenuItem>
             {/* Add options for status */}
-            <MenuItem value="Accepted">Accepted</MenuItem>
+            <MenuItem value="Acceptée">Acceptée</MenuItem>
           </TextField>
         );
       case 'Prise de mesure définitive':
@@ -82,9 +82,9 @@ const NewProject = ({ open, handleClose, handleSuccess, title, data, isUpdate })
             </MenuItem>
             {/* Add options for status */}
 
-            <MenuItem value="Scheduled">Scheduled</MenuItem>
-            <MenuItem value="Completed">Completed</MenuItem>
-            <MenuItem value="Pending">Pending</MenuItem>
+            <MenuItem value="Planifié">Planifié</MenuItem>
+            <MenuItem value="Effectué">Effectué</MenuItem>
+            <MenuItem value="En Attente">En Attente</MenuItem>
           </TextField>
         );
 
@@ -104,8 +104,8 @@ const NewProject = ({ open, handleClose, handleSuccess, title, data, isUpdate })
               <em>Select status</em>
             </MenuItem>
             {/* Add options for status */}
-            <MenuItem value="In Progress">In Progress</MenuItem>
-            <MenuItem value="Design Completed">Design Completed</MenuItem>
+            <MenuItem value="En cours">En cours</MenuItem>
+            <MenuItem value="La conception est terminée">La conception est terminée</MenuItem>
           </TextField>
         );
       case 'Production des films Opaq':
@@ -125,9 +125,9 @@ const NewProject = ({ open, handleClose, handleSuccess, title, data, isUpdate })
             </MenuItem>
             {/* Add options for status */}
 
-            <MenuItem value="Scheduled">Scheduled</MenuItem>
-            <MenuItem value="Pending">Pending</MenuItem>
-            <MenuItem value="In Progress">In Progress</MenuItem>
+            <MenuItem value="Planifié">Planifié</MenuItem>
+            <MenuItem value="En Attente">En Attente</MenuItem>
+            <MenuItem value="En cours">En cours</MenuItem>
           </TextField>
         );
       case 'Contrôle Qualité':
@@ -147,8 +147,8 @@ const NewProject = ({ open, handleClose, handleSuccess, title, data, isUpdate })
             </MenuItem>
             {/* Add options for status */}
 
-            <MenuItem value="Pending">Pending</MenuItem>
-            <MenuItem value="Approved">Approved</MenuItem>
+            <MenuItem value="En Attente">En Attente</MenuItem>
+            <MenuItem value="Validé">Validé</MenuItem>
           </TextField>
         );
       case 'Préparation du chantier':
@@ -168,7 +168,7 @@ const NewProject = ({ open, handleClose, handleSuccess, title, data, isUpdate })
             </MenuItem>
             {/* Add options for status */}
 
-            <MenuItem value="Completed">Completed</MenuItem>
+            <MenuItem value="Effectué">Effectué</MenuItem>
           </TextField>
         );
       case 'Installation':
@@ -188,9 +188,9 @@ const NewProject = ({ open, handleClose, handleSuccess, title, data, isUpdate })
             </MenuItem>
             {/* Add options for status */}
 
-            <MenuItem value="Scheduled">Scheduled</MenuItem>
-            <MenuItem value="Pending">Pending</MenuItem>
-            <MenuItem value="In Progress">In Progress</MenuItem>
+            <MenuItem value="Planifié">Planifié</MenuItem>
+            <MenuItem value="En Attente">En Attente</MenuItem>
+            <MenuItem value="En cours">En cours</MenuItem>
           </TextField>
         );
       case 'Projet terminé':
@@ -210,7 +210,7 @@ const NewProject = ({ open, handleClose, handleSuccess, title, data, isUpdate })
             </MenuItem>
             {/* Add options for status */}
 
-            <MenuItem value="Completed">Completed</MenuItem>
+            <MenuItem value="Effectué">Effectué</MenuItem>
           </TextField>
         );
       default:
